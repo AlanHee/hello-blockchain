@@ -9,8 +9,8 @@ void main() {
     final from = 'address 1';
     final to = 'address 2';
     final amount = 100.0;
-    final translation = Translation(from, to, amount);
+    final tx = Translation(from, to, amount);
     final hash = sha256.convert(utf8.encode('$from$to$amount')).toString();
-    expect(hash, translation.hash);
+    expect(hash, tx.hash);
   });
 }

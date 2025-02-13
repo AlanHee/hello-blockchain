@@ -16,8 +16,8 @@ void main(List<String> arguments) {
   //proof
   final lastBlock = blockChain.blockChain.last;
   final merkletree = Merkletree(lastBlock.translations);
-  translations.forEach((tx) {
+  for (var tx in translations) {
     print('tx[${tx.hash}] existed is: ${merkletree.contains(tx.hash)}');
-  });
+  }
   print('merkle root if the same: ${lastBlock.merkleRoot == merkletree.root}');
 }
