@@ -4,13 +4,13 @@ import 'package:test/test.dart';
 
 void main() {
   test('MerkleTree', () {
-    final List<Translation> trans = [
+    final List<Translation> txs = [
       Translation('address 1', 'address 2', 100.0),
       Translation('address 2', 'address 3', 100.0),
     ];
-    final merkletree = Merkletree(trans);
-    trans.map((trans) {
-      expect(merkletree.contains(trans.hash), true);
-    });
+    final merkletree = Merkletree(txs);
+    for (var tx in txs) {
+      expect(merkletree.contains(tx.hash), true);
+    }
   });
 }
