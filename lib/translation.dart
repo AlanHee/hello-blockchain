@@ -6,7 +6,7 @@ class Translation {
   final String from;
   final String to;
   final double amoute;
-  String hash = '';
+  String hash;
 
   Translation(this.from, this.to, this.amoute)
       : hash = sha256.convert(utf8.encode('$from$to$amoute')).toString();

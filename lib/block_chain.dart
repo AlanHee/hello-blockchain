@@ -21,8 +21,8 @@ class BlockChain {
   }
 
   void addBlock(List<Translation> translations) {
-    final Block prevBlock = blockChain.last;
-    final Block newBlock = Block(
+    final prevBlock = blockChain.last;
+    final newBlock = Block(
         prevBlock.index + 1, DateTime.now(), translations, prevBlock.hash);
     newBlock.mindBlock(diffculty);
     blockChain.add(newBlock);

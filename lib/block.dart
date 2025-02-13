@@ -10,12 +10,11 @@ class Block {
   final List<Translation> translations;
   final String previousHash;
   final String merkleRoot;
-  String hash;
+  String hash = '';
   int nonce = 0;
 
   Block(this.index, this.timestamp, this.translations, this.previousHash)
-      : merkleRoot = Merkletree(translations).root,
-        hash = '' {
+      : merkleRoot = Merkletree(translations).root {
     hash = caculateHash();
   }
 
@@ -38,8 +37,8 @@ class Block {
   String toString() {
     return '''
 Block $index
-hash: $hash
 prev: $previousHash
+hash: $hash
 merkle: $merkleRoot
 txCount: ${translations.length}
 nonce: $nonce 
