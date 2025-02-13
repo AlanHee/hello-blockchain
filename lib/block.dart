@@ -1,29 +1,48 @@
 import 'dart:convert';
-import 'package:crypto/crypto.dart' show sha256;
+import 'package:crypto/crypto.dart';
+
+import 'merkletree.dart';
+import 'translation.dart';
 
 class Block {
   final int index;
   final DateTime timestamp;
-  final String data;
+  final List<Translation> translations;
   final String previousHash;
-  String hash = "";
+  final String merkleRoot;
+  String hash;
   int nonce = 0;
 
-  Block(this.index, this.timestamp, this.data, this.previousHash) {
+  Block(this.index, this.timestamp, this.translations, this.previousHash)
+      : merkleRoot = Merkletree(translations).root,
+        hash = '' {
     hash = caculateHash();
   }
 
   String caculateHash() {
     return sha256
-        .convert(utf8.encode('$index$timestamp$data$previousHash$nonce'))
+        .convert(utf8.encode('$index$timestamp$merkleRoot$previousHash$nonce'))
         .toString();
   }
 
+  // PoW
   mindBlock(int difficulty) {
-    //!TODO PoW
-    if (!hash.startsWith('0' * difficulty)) {
+    final target = '0' * difficulty;
+    if (!hash.startsWith(target)) {
       nonce++;
       hash = caculateHash();
     }
+  }
+
+  @override
+  String toString() {
+    return '''
+Block $index
+hash: $hash
+prev: $previousHash
+merkle: $merkleRoot
+txCount: ${translations.length}
+nonce: $nonce 
+''';
   }
 }
