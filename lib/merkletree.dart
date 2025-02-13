@@ -4,7 +4,7 @@ import 'package:crypto/crypto.dart';
 
 class Merkletree {
   List<String> _hashes = [];
-  String root = '';
+  String root = '0';
 
   Merkletree(List<Translation> translatioins) {
     final leaves = translatioins.map((tx) => tx.hash).toList();
