@@ -5,7 +5,8 @@ void main() {
   test('BlockChain', () {
     final blockChain = BlockChain();
     blockChain.addBlock([]);
-    expect(blockChain.blockChain.first.previousHash, '0');
-    expect(blockChain.blockChain.length, 2);
+    final geniesisBlock = blockChain.blockChain.first;
+    final block2 = blockChain.blockChain[1];
+    expect(geniesisBlock.hash, block2.previousHash);
   });
 }
