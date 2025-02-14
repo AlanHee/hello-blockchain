@@ -6,7 +6,7 @@ void main() {
     final blockChain = BlockChain();
     blockChain.addBlock([]);
     final geniesisBlock = blockChain.blockChain.first;
-    final block2 = blockChain.blockChain[1];
+    final block2 = blockChain.blockChain[0];
     expect(geniesisBlock.hash, block2.previousHash);
   });
 }
