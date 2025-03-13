@@ -1,6 +1,6 @@
 import 'package:hello_blockchain/block.dart';
 
 void main(List<String> arguments) {
-  Block block = Block(0, DateTime.now(), 'this is txs', '0', '0');
-  print(block.toString());
+  Block block = Block(0, DateTime.now(), '0', 'this is data');
+  print(block);
 }
