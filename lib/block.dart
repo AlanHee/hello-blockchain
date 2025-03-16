@@ -7,22 +7,35 @@ class Block {
   final String preHash;
   final String data;
   String hash = '';
+  int nonce = 0;
 
   Block(this.id, this.timestamp, this.preHash, this.data) {
     hash = _cucalateHash();
   }
 
   String _cucalateHash() {
-    return sha256.convert(utf8.encode('$id+$timestamp+$preHash')).toString();
+    return sha256
+        .convert(utf8.encode('$id+$timestamp+$preHash+$nonce'))
+        .toString();
+  }
+
+  void mineBlock(int diffculty) {
+    /// PoW
+    while (!hash.startsWith('0' * diffculty)) {
+      nonce++;
+      hash = _cucalateHash();
+    }
   }
 
   @override
   String toString() {
     return """
-Block index: $id
-created: $timestamp
-hash: $hash
-previous hash: $preHash
+Index: $id
+Created: $timestamp
+Hash: $hash
+Previous: $preHash
+Data: $data
+Nonce: $nonce
 """;
   }
 }

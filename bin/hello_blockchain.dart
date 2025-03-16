@@ -1,6 +1,8 @@
-import 'package:hello_blockchain/block.dart';
+import 'package:hello_blockchain/blockchain.dart';
 
 void main(List<String> arguments) {
-  Block block = Block(0, DateTime.now(), '0', 'this is data');
-  print(block);
+  BlockChain blockchain = BlockChain();
+  blockchain.addBlock('this is data 1');
+  blockchain.addBlock('this is data 2');
+  blockchain.chain.forEach(print);
 }
