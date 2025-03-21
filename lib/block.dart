@@ -1,21 +1,26 @@
 import 'package:crypto/crypto.dart';
+import 'package:hello_blockchain/merkletree.dart';
 import 'dart:convert';
+
+import 'package:hello_blockchain/translation.dart';
 
 class Block {
   final int id;
   final DateTime timestamp;
   final String preHash;
-  final String data;
+  final List<Translation> data;
+  final String merkleRoot;
   String hash = '';
   int nonce = 0;
 
-  Block(this.id, this.timestamp, this.preHash, this.data) {
+  Block(this.id, this.timestamp, this.preHash, this.data)
+    : merkleRoot = MerkleTree(data.map((e) => e.id).toList()).root {
     hash = _cucalateHash();
   }
 
   String _cucalateHash() {
     return sha256
-        .convert(utf8.encode('$id+$timestamp+$preHash+$nonce'))
+        .convert(utf8.encode('$id+$timestamp+$merkleRoot+$preHash+$nonce'))
         .toString();
   }
 
@@ -32,9 +37,10 @@ class Block {
     return """
 Index: $id
 Created: $timestamp
+MerkleRoot: $merkleRoot
 Hash: $hash
 Previous: $preHash
-Data: $data
+Tx.Count: ${data.length}
 Nonce: $nonce
 """;
   }

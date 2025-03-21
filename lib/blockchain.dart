@@ -1,4 +1,5 @@
 import 'package:hello_blockchain/block.dart';
+import 'package:hello_blockchain/translation.dart';
 
 class BlockChain {
   List<Block> chain = [];
@@ -9,10 +10,11 @@ class BlockChain {
   }
 
   _createGenesisBlock() {
-    return Block(0, DateTime.now(), '0', 'this is genesis data');
+    Translation tx = Translation('address0', 'address0', 100.0);
+    return Block(0, DateTime.now(), '0', [tx]);
   }
 
-  addBlock(String data) {
+  addBlock(List<Translation> data) {
     Block last = chain.last;
     Block block = Block(last.id + 1, DateTime.now(), last.hash, data);
     block.mineBlock(diffculty);
